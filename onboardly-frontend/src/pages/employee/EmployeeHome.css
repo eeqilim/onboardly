@@ -1,0 +1,30 @@
+.employee-home-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  background: #dfe3e8;
+}
+
+.employee-home-welcome-card {
+  border: 1px solid #c8d0d8;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(20, 34, 51, 0.16);
+}
+
+.employee-home-welcome-card.ant-card {
+  border-radius: 2px;
+}
+
+.employee-home-welcome-card {
+  width: min(100%, 720px);
+  margin-bottom: 12px;
+}
+
+.employee-home-welcome-card .ant-card-body {
+  background: #fbfbfc;
+}
+
+.employee-home-welcome-card .ant-typography {
+  margin: 0;
+}

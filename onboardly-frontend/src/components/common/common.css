@@ -1,0 +1,54 @@
+.app-page-header {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--app-border-light);
+  border-radius: 2px;
+  background: var(--app-surface);
+  box-shadow: 0 1px 3px rgba(20, 34, 51, 0.12);
+}
+
+.app-page-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-page-header .ant-typography {
+  margin: 0;
+}
+
+.app-page-header .ant-alert {
+  margin-top: 10px;
+}
+
+.app-page-card {
+  border: 1px solid var(--app-border);
+  border-radius: 2px;
+  box-shadow: var(--app-shadow);
+}
+
+.app-page-card.ant-card {
+  border-radius: 2px;
+}
+
+.app-page-card > .ant-card-body {
+  background: var(--app-card-bg);
+}
+
+.app-document-preview-object {
+  width: 100%;
+  height: 60vh;
+  border: 1px solid var(--app-border-light);
+}
+
+.app-document-preview-fallback {
+  height: 100%;
+  background: var(--app-surface-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+}

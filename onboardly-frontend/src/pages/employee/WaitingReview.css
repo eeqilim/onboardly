@@ -1,0 +1,48 @@
+.waiting-review-page {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 112px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #dfe3e8;
+}
+
+.waiting-review-card {
+  width: min(100%, 720px);
+  border: 1px solid #c8d0d8;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(20, 34, 51, 0.16);
+}
+
+.waiting-review-card.ant-card {
+  border-radius: 2px;
+}
+
+.waiting-review-card .ant-card-body {
+  padding: 18px;
+  background: #fbfbfc;
+}
+
+.waiting-review-icon {
+  display: inline-block;
+  padding-top: 8px;
+  font-size: 48px;
+  line-height: 1.3;
+}
+
+.waiting-review-message {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .waiting-review-page {
+    align-items: flex-start;
+  }
+
+  .waiting-review-card .ant-result {
+    padding: 24px 8px;
+  }
+}

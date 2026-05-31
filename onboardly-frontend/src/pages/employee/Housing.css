@@ -1,0 +1,87 @@
+.housing-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  background: #dfe3e8;
+}
+
+.housing-title-row {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid #cfd6dd;
+  border-radius: 2px;
+  background: #ffffff;
+}
+
+.housing-title-row .ant-typography {
+  margin: 0;
+}
+
+.housing-title-row .ant-alert {
+  margin-top: 10px;
+}
+
+.housing-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.1fr);
+  gap: 12px;
+}
+
+.housing-card {
+  overflow: hidden;
+  border: 1px solid #c8d0d8;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(20, 34, 51, 0.16);
+}
+
+.housing-card.ant-card {
+  border-radius: 2px;
+}
+
+.housing-card .ant-card-head {
+  min-height: 38px;
+  padding: 0 12px;
+  border-bottom: 1px solid #d8dde3;
+  border-radius: 2px 2px 0 0;
+  background: #0f7fa3;
+}
+
+.housing-card .ant-card-head-title {
+  padding: 8px 0;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.housing-card .ant-card-body {
+  padding: 14px;
+  border-radius: 0 0 2px 2px;
+  background: #fbfbfc;
+}
+
+.housing-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.housing-card-house .ant-card-head {
+  background: #0f7fa3;
+}
+
+.housing-actions {
+  grid-column: 1 / -1;
+}
+
+.housing-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media (max-width: 900px) {
+  .housing-layout {
+    grid-template-columns: 1fr;
+  }
+}

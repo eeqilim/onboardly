@@ -1,0 +1,215 @@
+.onboarding-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  background: #dfe3e8;
+}
+
+.onboarding-title-row {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid #cfd6dd;
+  border-radius: 2px;
+  background: #ffffff;
+}
+
+.onboarding-title-row .ant-typography {
+  margin: 0;
+}
+
+.onboarding-title-row .ant-alert {
+  margin-top: 10px;
+}
+
+.onboarding-status-alert {
+  margin-bottom: 12px;
+}
+
+.onboarding-alert-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 20px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.onboarding-form {
+  column-count: 2;
+  column-gap: 12px;
+}
+
+.onboarding-column {
+  display: contents;
+}
+
+.onboarding-card {
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid #c8d0d8;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(20, 34, 51, 0.16);
+  break-inside: avoid;
+}
+
+.onboarding-card.ant-card,
+.onboarding-nested-card.ant-card,
+.onboarding-document-card.ant-card {
+  border-radius: 2px;
+}
+
+.onboarding-card > .ant-card-head {
+  min-height: 38px;
+  padding: 0 12px;
+  border-bottom: 1px solid #d8dde3;
+  border-radius: 2px 2px 0 0;
+  background: #0f7fa3;
+}
+
+.onboarding-card > .ant-card-head .ant-card-head-title {
+  padding: 8px 0;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.onboarding-card > .ant-card-body {
+  min-width: 0;
+  padding: 14px;
+  background: #fbfbfc;
+}
+
+.onboarding-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.onboarding-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  min-width: 0;
+}
+
+.onboarding-address-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.onboarding-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  color: #5f6872;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.onboarding-input-group .ant-input,
+.onboarding-input-group .ant-select {
+  width: 100%;
+}
+
+.onboarding-input-group-error > span {
+  color: #cf1322;
+}
+
+.onboarding-profile-layout {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+.onboarding-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.onboarding-nested-card {
+  border-color: #d8dde3;
+}
+
+.onboarding-nested-card > .ant-card-head {
+  min-height: 34px;
+  background: #eef3f7;
+}
+
+.onboarding-actions {
+  display: inline-flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  break-inside: avoid;
+}
+
+.onboarding-document-list .ant-list-item {
+  padding: 0 0 12px;
+  border-block-end: 0;
+}
+
+.onboarding-document-card {
+  width: 100%;
+  border: 1px solid #d8dde3;
+}
+
+.onboarding-document-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.onboarding-document-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.onboarding-document-link.ant-btn {
+  height: auto;
+  padding: 0;
+  font-weight: 600;
+}
+
+.onboarding-preview {
+  width: 100%;
+  min-height: 520px;
+  border: 1px solid #d8dde3;
+}
+
+@media (max-width: 1100px) {
+  .onboarding-form {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .onboarding-form {
+    column-count: 1;
+  }
+
+  .onboarding-grid,
+  .onboarding-address-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-profile-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-actions {
+    justify-content: flex-start;
+  }
+}

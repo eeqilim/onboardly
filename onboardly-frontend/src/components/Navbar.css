@@ -1,0 +1,60 @@
+.app-navbar {
+  display: flex;
+  height: auto;
+  min-height: 64px;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.app-navbar-brand {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.app-navbar-logo {
+  width: 70px;
+}
+
+.app-navbar-title.ant-typography {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.app-navbar-menu {
+  min-width: 0;
+  flex: 1 1 auto;
+  border-bottom: 0;
+}
+
+.app-navbar-menu.ant-menu-horizontal {
+  line-height: 64px;
+}
+
+.app-navbar-account {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .app-navbar {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding: 8px 16px;
+  }
+
+  .app-navbar-menu {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .app-navbar-menu.ant-menu-horizontal {
+    line-height: 46px;
+  }
+}

@@ -1,0 +1,472 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Employee Service",
+    "description": "All endpoints for the employee-service microservice (port 8082).\n\nSet `jwtToken` to a token obtained from POST /auth/login on the auth-server.\nUse `hrJwtToken` / `employeeJwtToken` to store tokens for each role, then copy the one you need into `jwtToken` before running a request.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl",          "value": "http://localhost:8082" },
+    { "key": "jwtToken",         "value": "<paste token here>",  "description": "Active JWT — set this before running any request" },
+    { "key": "hrJwtToken",       "value": "",                     "description": "Store your HR-role token here" },
+    { "key": "employeeJwtToken", "value": "",                     "description": "Store your EMPLOYEE-role token here" },
+    { "key": "employeeId",       "value": "",                     "description": "MongoDB ObjectId of the target employee (String)" },
+    { "key": "applicationId",    "value": "",                     "description": "MongoDB ObjectId of the onboarding application" },
+    { "key": "visaStatusId",     "value": "",                     "description": "MongoDB ObjectId of the visa status" },
+    { "key": "documentId",       "value": "",                     "description": "MongoDB ObjectId of the personal document" }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const token = pm.collectionVariables.get('jwtToken');",
+          "if (token) {",
+          "  pm.request.headers.upsert({ key: 'Authorization', value: 'Bearer ' + token });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Employee Profile",
+      "item": [
+        {
+          "name": "Get my profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "me"]
+            }
+          }
+        },
+        {
+          "name": "Get profile by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get full profile by ID (HR only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}/full",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}", "full"]
+            }
+          }
+        },
+        {
+          "name": "Update name",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}/name",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}", "name"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"middleName\": \"Michael\",\n  \"preferredName\": \"Johnny\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Update address",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}/address",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}", "address"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"PRIMARY\",\n  \"addressLine1\": \"123 Main St\",\n  \"addressLine2\": \"Apt 4B\",\n  \"city\": \"New York\",\n  \"state\": \"NY\",\n  \"zipCode\": \"10001\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Update contact",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}/contact",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}", "contact"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"EMERGENCY\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"middleName\": null,\n  \"cellPhone\": \"5550001234\",\n  \"alternatePhone\": null,\n  \"email\": \"jane.doe@example.com\",\n  \"relationship\": \"Spouse\",\n  \"address\": \"123 Main St, New York, NY 10001\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Update employment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/profile/{{employeeId}}/employment",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "profile", "{{employeeId}}", "employment"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employmentStartDate\": \"2024-01-15\",\n  \"employmentEndDate\": null,\n  \"driverLicense\": \"D1234567\",\n  \"driverLicenseExpiration\": \"2028-06-30\",\n  \"houseId\": null\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Onboarding",
+      "item": [
+        {
+          "name": "Get onboarding profile by employee ID (HR only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/hr/{{employeeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "hr", "{{employeeId}}"]
+            },
+            "description": "Returns the full employee profile (all onboarding-submitted data) for HR review."
+          }
+        },
+        {
+          "name": "Get my application",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "me"]
+            }
+          }
+        },
+        {
+          "name": "Start application",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/start",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "start"]
+            }
+          }
+        },
+        {
+          "name": "Submit application",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/submit",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "submit"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"middleName\": null,\n  \"preferredName\": \"Johnny\",\n  \"email\": \"john.doe@example.com\",\n  \"cellPhone\": \"5550001234\",\n  \"alternatePhone\": null,\n  \"gender\": \"MALE\",\n  \"ssn\": \"123-45-6789\",\n  \"dateOfBirth\": \"1990-05-15\",\n  \"citizenshipStatus\": \"CITIZEN\",\n  \"driverLicense\": \"D1234567\",\n  \"driverLicenseExpiration\": \"2028-06-30\",\n  \"address\": {\n    \"type\": \"PRIMARY\",\n    \"addressLine1\": \"123 Main St\",\n    \"addressLine2\": null,\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"10001\"\n  },\n  \"referenceContact\": {\n    \"type\": \"REFERENCE\",\n    \"firstName\": \"Alice\",\n    \"lastName\": \"Smith\",\n    \"middleName\": null,\n    \"cellPhone\": \"5550009876\",\n    \"alternatePhone\": null,\n    \"email\": \"alice.smith@example.com\",\n    \"relationship\": \"Manager\",\n    \"address\": null\n  },\n  \"emergencyContacts\": [\n    {\n      \"type\": \"EMERGENCY\",\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"middleName\": null,\n      \"cellPhone\": \"5550005678\",\n      \"alternatePhone\": null,\n      \"email\": \"jane.doe@example.com\",\n      \"relationship\": \"Spouse\",\n      \"address\": null\n    }\n  ],\n  \"visaInfo\": null\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "List pending applications (HR only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "pending"]
+            }
+          }
+        },
+        {
+          "name": "Review application (HR only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/onboarding/{{applicationId}}/review",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "onboarding", "{{applicationId}}", "review"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\",\n  \"hrFeedback\": \"All documents verified.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Visa Status",
+      "item": [
+        {
+          "name": "Get my active visa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/me/active",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "me", "active"]
+            }
+          }
+        },
+        {
+          "name": "Get my visa history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/me/history",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "me", "history"]
+            }
+          }
+        },
+        {
+          "name": "Get my STEM OPT progress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/me/stem-opt/progress",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "me", "stem-opt", "progress"]
+            }
+          }
+        },
+        {
+          "name": "Upload STEM OPT document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/me/stem-opt/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "me", "stem-opt", "upload"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "step", "value": "I_983", "type": "text", "description": "One of: I_983, I_20, OPT_RECEIPT, OPT_EAD" },
+                { "key": "file", "type": "file", "description": "PDF, JPG, or PNG — max 10 MB" },
+                { "key": "eadStartDate", "value": "2025-01-01", "type": "text", "disabled": true, "description": "Required only for OPT_EAD step (YYYY-MM-DD)" },
+                { "key": "eadEndDate",   "value": "2027-01-01", "type": "text", "disabled": true, "description": "Required only for OPT_EAD step (YYYY-MM-DD)" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List all visa statuses (HR only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/hr/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "hr", "all"]
+            }
+          }
+        },
+        {
+          "name": "Review STEM OPT application (HR only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/visa/hr/{{visaStatusId}}/review",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "visa", "hr", "{{visaStatusId}}", "review"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\",\n  \"hrFeedback\": \"EAD card verified.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Upload document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "upload"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "description": "PDF, JPG, or PNG — max 10 MB" },
+                {
+                  "key": "meta",
+                  "value": "{\"title\":\"My Driver License\",\"comment\":null,\"documentType\":\"DRIVER_LICENSE\",\"applicationType\":null}",
+                  "type": "text",
+                  "contentType": "application/json",
+                  "description": "documentType: DRIVER_LICENSE, WORK_AUTH, I_983, I_20, OPT_RECEIPT, OPT_EAD, AVATAR, OTHER"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get my documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "me"]
+            }
+          }
+        },
+        {
+          "name": "Get documents by employee ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/employee/{{employeeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "employee", "{{employeeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Download document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/{{documentId}}/download",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "{{documentId}}", "download"]
+            }
+          }
+        },
+        {
+          "name": "Get presigned preview URL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/{{documentId}}/preview-url",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "{{documentId}}", "preview-url"]
+            }
+          }
+        },
+        {
+          "name": "Add HR comment (HR only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/{{documentId}}/hr-comment",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "{{documentId}}", "hr-comment"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Document looks valid — approved for onboarding.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Delete document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/documents/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "documents", "{{documentId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "HR",
+      "item": [
+        {
+          "name": "List employees (paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/hr/employees?page=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "hr", "employees"],
+              "query": [{ "key": "page", "value": "0", "description": "Zero-based page number, 10 per page" }]
+            }
+          }
+        },
+        {
+          "name": "Search employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/hr/employees/search?q=john",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "hr", "employees", "search"],
+              "query": [{ "key": "q", "value": "john", "description": "First name, last name, or preferred name (case-insensitive)" }]
+            }
+          }
+        },
+        {
+          "name": "Get application tracking dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee/hr/tracking",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee", "hr", "tracking"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

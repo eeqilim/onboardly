@@ -1,0 +1,45 @@
+:root {
+  --app-bg: #dfe3e8;
+  --app-surface: #ffffff;
+  --app-card-bg: #fbfbfc;
+  --app-border: #c8d0d8;
+  --app-border-light: #d8dde3;
+  --app-section-blue: #0f7fa3;
+  --app-text: #1f2937;
+  --app-text-muted: #667085;
+  --app-shadow: 0 1px 3px rgba(20, 34, 51, 0.16);
+
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--app-text);
+  background: var(--app-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--app-bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
