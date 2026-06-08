@@ -9,7 +9,7 @@ as the backing infrastructure.
 
 - **Java 21**, **Spring Boot 3.5.x**, **Maven** (each service has its own wrapper)
 - **Spring Cloud**: Netflix Eureka, Gateway (WebFlux), OpenFeign
-- **Data**: MySQL, MongoDB
+- **Data**: MySQL (AWS RDS), MongoDB
 - **Messaging**: Apache Kafka (+ Zookeeper)
 - **Auth**: JWT (shared signing key across services)
 - **Storage**: AWS S3 (employee documents)
@@ -121,6 +121,7 @@ Environment variables by service:
 
 ```bash
 # Database (MySQL) — auth-server, application-service, housing-service
+# Local, or AWS RDS for MySQL (deployed): point DB_URL at the RDS endpoint, no code change.
 export DB_URL="jdbc:mysql://<host>:3306/onboardly?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/New_York"
 export DB_USERNAME="..."
 export DB_PASSWORD="..."

@@ -39,7 +39,8 @@ full service fan-out, Eureka discovery, and Kafka topics.
 ## Tech stack
 
 **Backend** — Java 21, Spring Boot 3.5, Spring Cloud (Eureka, Gateway,
-OpenFeign), MySQL, MongoDB, Apache Kafka, AWS S3, JWT auth, springdoc/Swagger.
+OpenFeign), MySQL (AWS RDS), MongoDB, Apache Kafka, AWS S3, JWT auth,
+springdoc/Swagger.
 
 **Frontend** — React 18, Vite, React Router v7, Ant Design v6, Axios.
 
@@ -56,20 +57,18 @@ OpenFeign), MySQL, MongoDB, Apache Kafka, AWS S3, JWT auth, springdoc/Swagger.
 
 ### 1. Database setup
 
-The MySQL services (`auth-server`, `application-service`, `housing-service`) do
-not create their tables automatically, since they run with `ddl-auto=none` and
-no Flyway. You must load the schema yourself before starting them. You also need
-your own running MySQL instance, because the `docker compose` setup below starts
-only Kafka, Zookeeper, and MongoDB.
+The MySQL services (`auth-server`, `application-service`, `housing-service`) run
+with `ddl-auto=none`, so load the schema before first start. Use a local MySQL
+server or **AWS RDS for MySQL** (used in deployment), pointed at via `DB_URL`.
+`docker compose` (below) starts only Kafka, Zookeeper, and MongoDB.
 
 - Run [`AuthServer.sql`](onboardly-backend/auth-server/AuthServer.sql) to create
   the auth tables and seed the dev accounts below.
-- MongoDB (`employee_db`, used by `employee-service`) is created automatically.
+- MongoDB (`employee_db`) is created automatically.
 
-> **Caveat:** `AuthServer.sql` creates a database named `auth_db`, while the
-> services default `DB_URL` to a database named `onboardly`. These names must
-> match, so either run the script against `onboardly` or set `DB_URL` to point
-> at `auth_db`.
+> **Caveat:** `AuthServer.sql` creates the `auth_db` database, but services
+> default `DB_URL` to `onboardly`. Make the names match, or set `DB_URL`
+> accordingly.
 
 ### 2. Backend
 
@@ -123,13 +122,12 @@ not use these outside development):
 ## Configuration & secrets
 
 Each backend module reads config from `src/main/resources/application.properties`,
-with secrets pulled from environment variables (`${VAR:default}`). The committed
-defaults are for local development only. Override them in any shared or
-production environment, and never commit real credentials. The JWT signing key
-must be identical across all services.
+with secrets from environment variables (`${VAR:default}`). The committed defaults
+are local only; override them everywhere else, never commit real credentials, and
+keep the JWT signing key identical across services.
 
-See the [backend README](onboardly-backend/README.md#configuration--secrets)
-for the full list.
+Full list in the
+[backend README](onboardly-backend/README.md#configuration--secrets).
 
 ## API documentation
 
